@@ -30,7 +30,14 @@ def addToOrder(order):
 customer = ConsoleInput.get_new_customer()
 
 my_local_dominos = StoreLocator.find_closest_store_to_customer(customer)
+print("\nClosest Store:")
 print(my_local_dominos)
+
+ans = input("Would you like to order from this store? (Y/N)")
+if ans.lower() not in ["yes", "y"]:
+	print("Goodbye!")
+	quit()
+
 print("\nMENU\n")
 
 menu = my_local_dominos.get_menu()
@@ -52,5 +59,18 @@ for item in order.data["Products"]:
 	total += float(price)
 
 print("\nYour order total is: $" + str(total) + " + TAX")
+payment = input("\nWill you be paying CASH or CREDIT CARD? (CASH, CREDIT CARD)")
 
-card = ConsoleInput.get_credit_card()
+if payment.lower() in ["card", "credit card"]:
+	card = ConsoleInput.get_credit_card()
+else:
+	card = False
+
+ans = input("Would you like to place this order? (Y/N)")
+if ans.lower() in ["y", "yes"]:
+	order.place(card)
+	my_local_dominos.place_order(order, card)
+	print("Order Placed!")
+else:
+	print("Goodbye!")
+	
