@@ -27,7 +27,7 @@ def addToOrder(order):
 				break
 			print("Invalid Code...")
 
-customer = Customer("Erik", "Correa", "erikcorrea444@gmail.com", "982342234", "4207 Keele St, North York, ON, M3J3T8")
+customer = ConsoleInput.get_new_customer()
 
 my_local_dominos = StoreLocator.find_closest_store_to_customer(customer)
 print(my_local_dominos)
@@ -44,6 +44,13 @@ while True:
 	if answer.lower() not in ["yes", "y"]:
 		break
 
+total = 0
 print("\nYour order is as follows:")
 for item in order.data["Products"]:
-	print(item["Code"])
+	price = item["Price"]
+	print(item["Name"] + "$" + item["Price"])
+	total += float(price)
+
+print("\nYour order total is: $" + str(total) + " + TAX")
+
+card = ConsoleInput.get_credit_card()
